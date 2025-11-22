@@ -1,0 +1,21 @@
+home_depot:
+  required_fields:
+    - vendor_sku
+    - upc
+    - country_of_origin
+    - release_date
+  mappings:
+    "VendorSKU": "vendor_sku"
+    "UPCCode": "upc"
+    "CountryOfOrigin": "country_of_origin"
+    "LaunchDate": "release_date"
+
+nike:
+  required_fields:
+    - style_number
+    - color_code
+    - country_of_origin
+  mappings:
+    "Style": "style_number"
+    "Clr": "color_code"
+    "COO": "country_of_origin"
