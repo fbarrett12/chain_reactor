@@ -1,26 +1,26 @@
-📦 AI-Powered EDI / Document Normalization Service
+⛓️ CHAIN REACTOR ⛓️: The AI-Powered EDI / Document Normalization Service
 
 A scalable, vendor-agnostic, AI-assisted file ingestion and normalization pipeline built with Ruby on Rails.
 
 ✨ Features
 
-Upload CSV, JSON, or XML vendor data files
+- Upload CSV, JSON, or XML vendor data files
 
-Background job processing
+- Background job processing
 
-Config-driven vendor mapping rules
+- Config-driven vendor mapping rules
 
-Multi-step normalization pipeline
+- Multi-step normalization pipeline
 
-Optional AI field enrichment
+- Optional AI field enrichment
 
-Validation + structured error annotations
+- Validation + structured error annotations
 
-Webhook callback support
+- Webhook callback support
 
-Versioned JSON API (/api/v1/uploads)
+- Versioned JSON API (/api/v1/uploads)
 
-Full RSpec test suite
+- Full RSpec test suite
 
 🏗️ Architecture
 
@@ -73,25 +73,25 @@ Central data structure representing each uploaded file.
 
 Handles:
 
-Status lifecycle (pending → processing → succeeded/failed)
+- Status lifecycle (pending → processing → succeeded/failed)
 
-Error logging
+- Error logging
 
-File attachment (ActiveStorage)
+- File attachment (ActiveStorage)
 
-Storage for normalized payload (JSONB)
+- Storage for normalized payload (JSONB)
 
-This encapsulated lifecycle makes upload state predictable and observable.
+- This encapsulated lifecycle makes upload state predictable and observable.
 
 2. EdiRules (Config Loader)
 
 Rules defined in config/edi_rules.yml:
 
-Required fields per vendor
+- Required fields per vendor
 
-Source → canonical field mappings
+- Source → canonical field mappings
 
-Easily extended with new vendors
+- Easily extended with new vendors
 
 This enables clean separation between vendor formats and internal domain schema.
 
@@ -99,11 +99,11 @@ This enables clean separation between vendor formats and internal domain schema.
 
 Strategy pattern for ingesting various file formats:
 
-CsvParser
+- CsvParser
 
-JsonParser
+- JsonParser
 
-XmlParser (stubbed)
+- XmlParser (stubbed)
 
 All parsers output the same intermediate structure:
 array of Hashes with vendor-specific keys.
@@ -118,18 +118,10 @@ Keeps _original record for validation and debugging.
 
 5. AiFieldEnricher
 
-Optional AI-assisted enrichment step.
+AI-assist layer that suggests values for missing required fields
+(ready for Azure OpenAI integration).
 
-Detects missing required fields
-
-Generates suggestions (stubbed; ready for Azure OpenAI)
-
-Adds _ai_suggestions metadata
-
-Never overwrites existing data
-
-This mirrors how AI should behave in production pipelines:
-augment, don’t mutate raw data.
+Adds _ai_suggestions metadata without overwriting original values.
 
 
 6. RecordValidator
@@ -140,62 +132,60 @@ Annotates missing required fields per vendor:
 
 No exceptions thrown — client systems can decide whether to accept or reject records.
 
-7. DocumentNormalizer (Orchestrator)
+7. DocumentNormalizer
 
-Pipeline coordinator.
+Pipeline orchestrator that:
 
-Steps:
+- Parses file
 
-Parse
+- Maps fields
 
-Map
+- Runs AI enrichment
 
-AI enrich
+- Validates records
 
-Validate
+- Computes stats
 
-Compute statistics (missing field counts, record totals)
-
-Returns a structured JSON payload ready for client consumption.
+- Returns a structured payload stored on the model.
 
 8. Background Job: ProcessDocumentUploadJob
 
 Wraps the entire pipeline in an async job
 
-Manages state transitions
+- Manages state transitions
 
-Captures exceptions and stores failure reasons
+- Captures exceptions and stores failure reasons
 
-Optionally triggers webhook notifications
+- Optionally triggers webhook notifications
 
-Idempotent in structure and retry-safe
+- Idempotent in structure and retry-safe
 
 9. WebhookNotifier
 
 Sends POST callbacks to client URLs
 
-Includes status, errors, and normalized payload
+- Includes status, errors, and normalized payload
 
-Gracefully logs failures
+- Gracefully logs failures
 
-Webhook is sent for both success and failure.
+- Webhook is sent for both success and failure.
 
 10. API (v1)
 
 Endpoints:
 
-POST /api/v1/uploads
+- POST /api/v1/uploads
 
-Upload a file + optional webhook URL.
-Returns 202 Accepted and enqueues background job.
+  - Upload a file + optional webhook URL.
+  - Returns 202 Accepted and enqueues background job.
 
-GET /api/v1/uploads/:id
+- GET /api/v1/uploads/:id
 
-Retrieve status + payload.
+  - Retrieve status + payload.
 
-GET /api/v1/uploads
+- GET /api/v1/uploads
 
-List uploads (recent first).
+  - List uploads (recent first).
 
 🧪 Test Suite Overview
 
