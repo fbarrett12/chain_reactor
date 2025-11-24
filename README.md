@@ -191,63 +191,26 @@ Endpoints:
 
 The project includes a full RSpec suite covering:
 
-Model specs
+- Model specs
 
-Lifecycle transitions
+- Lifecycle transitions
 
-Error handling
+- Error handling
 
-processed_at and error_message behavior
+- Service specs
 
-Service specs
+- Job specs
 
-Validated in isolation using doubles/stubs:
+- Requests specs
 
-FieldMapper
+- Config loader specs
 
-RecordValidator
+To run tests:
 
-AiFieldEnricher
+bundle exec rspec
 
-DocumentNormalizer
 
-ParserFactory (implicitly exercised)
-
-WebhookNotifier
-
-These confirm correct transformations and pipeline behavior.
-
-Job specs
-
-Successful normalization flow
-
-Failure path
-
-Webhook triggered or skipped appropriately
-
-Uses:
-
-instance_of(DocumentUpload) for resilient matches
-
-Stabilized stubs for DocumentNormalizer + WebhookNotifier
-
-Request specs
-
-/uploads creates records & enqueues jobs
-
-/uploads/:id returns expected JSON
-
-/uploads lists uploads
-
-Config loader specs
-
-EdiRules loads YAML rules
-
-Unknown vendor properly raises KeyError
-
-The suite proves both correctness and modularity.
-
-TO DO
+TO DO: Will implement these ideas in no particular order over time
 
 1. Replace ActiveJob Inline with Sidekiq or Azure Queue
 
@@ -259,7 +222,7 @@ Azure Service Bus
 
 AWS SQS
 
-Kafka for streaming ingest
+Kafka for streaming ingest (very ambitious but it definitely sounds good right?)
 
 Ensures at-least-once delivery and better monitoring.
 
@@ -298,6 +261,8 @@ Chunked job fan-out
 Aggregation job for combining results
 
 5. Full AI Integration
+
+AI is the selling point so that should probably work 
 
 Replace stubs with Azure OpenAI:
 
