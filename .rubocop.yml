@@ -1,0 +1,128 @@
+inherit_from: .rubocop_todo.yml
+
+# .rubocop.yml
+
+require:
+  - rubocop-rails
+  - rubocop-performance
+  - rubocop-rspec
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.1
+  Exclude:
+    - "bin/**/*"
+    - "db/schema.rb"
+    - "db/migrate/**/*"
+    - "node_modules/**/*"
+    - "vendor/**/*"
+    - "tmp/**/*"
+    - "log/**/*"
+
+  DisplayCopNames: true
+
+# -----------------------
+# Style / Layout
+# -----------------------
+
+Layout/LineLength:
+  Max: 110
+  IgnoredPatterns:
+    - 'http'   # allow long URLs
+    - 'https'
+
+Metrics/MethodLength:
+  Max: 20
+  Exclude:
+    - "spec/**/*"
+
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*"
+    - "config/**/*"
+    - "db/migrate/**/*"
+
+Metrics/AbcSize:
+  Max: 20
+  Exclude:
+    - "spec/**/*"
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# -----------------------
+# Rails-specific cops
+# -----------------------
+
+Rails:
+  Enabled: true
+
+Rails/BelongsTo:
+  Enabled: true
+
+Rails/SkipsModelValidations:
+  Enabled: true
+
+Rails/Output:
+  Enabled: true
+
+Rails/TimeZone:
+  Enabled: true
+
+# -----------------------
+# Performance cops
+# -----------------------
+
+Performance:
+  Enabled: true
+
+# -----------------------
+# RSpec cops
+# -----------------------
+
+RSpec:
+  Enabled: true
+
+RSpec/DescribeClass:
+  Exclude:
+    - "spec/requests/**/*"
+
+RSpec/ExampleLength:
+  Max: 15
+
+RSpec/NestedGroups:
+  Max: 4
+
+RSpec/MultipleExpectations:
+  Max: 5
+  Exclude:
+    - "spec/requests/**/*"
+    - "spec/jobs/**/*"
+
+RSpec/NamedSubject:
+  Enabled: false
+
+# -----------------------
+# Project-specific tweaks
+# -----------------------
+
+# Allow service objects & jobs to have a bit more complexity;
+# they often orchestrate multiple collaborators.
+Metrics/ClassLength:
+  Max: 150
+  Exclude:
+    - "app/services/**/*"
+    - "app/jobs/**/*"
+
+Metrics/ModuleLength:
+  Max: 150
+
+# Allow puts-like debugging in bin/ and scripts, but not app code.
+Lint/Debugger:
+  Enabled: true
+
+inherit_from:
+  - .rubocop_todo.yml
