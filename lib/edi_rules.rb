@@ -2,7 +2,7 @@ class EdiRules
   CONFIG_PATH = Rails.root.join("config", "edi_rules.yml")
 
   def self.for(vendor)
-    all.fetch(vendor.to_s) do
+    all.fetch(vendor.to_sym) do
       raise KeyError, "No EDI rules configured for vendor=#{vendor}"
     end
   end
