@@ -212,7 +212,7 @@ bundle exec rspec
 
 TO DO: Will implement these ideas in no particular order over time
 
-- Replace ActiveJob Inline with Sidekiq or Azure Queue
+1. Replace ActiveJob Inline with Sidekiq or Azure Queue
 
   - For horizontal scalability:
 
@@ -242,67 +242,67 @@ TO DO: Will implement these ideas in no particular order over time
 
 3. Add Observability Layer
 
-Structured logging (Lograge)
+  - Structured logging (Lograge)
 
-Job metrics (Prometheus)
+  - Job metrics (Prometheus)
 
-“Normalization error rate per vendor” dashboard
+  - “Normalization error rate per vendor” dashboard
 
-AI usage metrics
+  - AI usage metrics
 
 4. Batch processing for large vendor files
 
-For CSVs with 100k+ rows:
+  - For CSVs with 100k+ rows:
 
-Streaming CSV parser
+    - Streaming CSV parser
 
-Chunked job fan-out
+    - Chunked job fan-out
 
-Aggregation job for combining results
+    - Aggregation job for combining results
 
 5. Full AI Integration
 
-AI is the selling point so that should probably work 
+  - AI is the selling point so that should probably work 
 
-Replace stubs with Azure OpenAI:
+  - Replace stubs with Azure OpenAI:
 
-Embeddings for similarity-based guessing
+    - Embeddings for similarity-based guessing
 
-GPT-4o-mini for structured field inference
+    - GPT-4o-mini for structured field inference
 
-Model fallback strategy
+    - Model fallback strategy
 
-Cost control: caching AI suggestions per field
+    - Cost control: caching AI suggestions per field
 
 6. Versioned Canonical Schema
 
-Introduce:
+  - Introduce:
 
-/schema/v1
+    - /schema/v1
 
-/schema/v2
+    - /schema/v2
 
-Allow vendors to upgrade without breaking older integrations.
+    - Allow vendors to upgrade without breaking older integrations.
 
 7. Add Authentication / API Keys
 
-For multi-tenant systems:
+  - For multi-tenant systems:
 
-HMAC API keys
+    - HMAC API keys
 
-JWT with vendor-scoped claims
+    - JWT with vendor-scoped claims
 
-Rate limiting (Rack::Attack)
+    - Rate limiting (Rack::Attack)
 
 8. Add Admin UI for Vendor Rules
 
-Rules currently live in YAML.
-A small admin dashboard could allow:
+  - Rules currently live in YAML.
+  - A small admin dashboard could allow:
 
-Editing required fields
+    - Editing required fields
 
-Editing mappings
+    - Editing mappings
 
-Testing transformations
+    - Testing transformations
 
-Managing AI behavior per vendor
+    - Managing AI behavior per vendor
