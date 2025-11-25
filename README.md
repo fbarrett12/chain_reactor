@@ -228,17 +228,17 @@ TO DO: Will implement these ideas in no particular order over time
 
 2. Add Webhook Signing & Retry Strategy
 
-Current webhook delivery is simple.
+  - Current webhook delivery is simple.
 
-Production additions:
+    - Production additions:
 
-HMAC signature (X-Signature-SHA256)
+    - HMAC signature (X-Signature-SHA256)
 
-Delivery attempt logs
+    - Delivery attempt logs
 
-Exponential backoff + DLQ
+    - Exponential backoff + DLQ
 
-Eventual consistency guarantees
+    - Eventual consistency guarantees
 
 3. Add Observability Layer
 
