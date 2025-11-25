@@ -1,12 +1,19 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  # Simple JSON health endpoint
+  get "/health", to: proc { [200, { "Content-Type" => "application/json" }, [{ status: "ok" }.to_json]] }
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
+  # Simple root page (could be JSON or HTML)
+  root to: proc {
+    [
+      200,
+      { "Content-Type" => "application/json" },
+      [{ name: "Chain Reactor EDI Normalizer API", status: "running" }.to_json]
+    ]
+  }
+
   namespace :api do
     namespace :v1 do
-      resources :uploads, only: [:create, :show, :index]
+      resources :uploads, only: %i[index show create]
     end
   end
 end
