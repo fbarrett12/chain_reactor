@@ -212,19 +212,19 @@ bundle exec rspec
 
 TO DO: Will implement these ideas in no particular order over time
 
-1. Replace ActiveJob Inline with Sidekiq or Azure Queue
+- Replace ActiveJob Inline with Sidekiq or Azure Queue
 
-For horizontal scalability:
+  - For horizontal scalability:
 
-Sidekiq + Redis
+    - Sidekiq + Redis
 
-Azure Service Bus
+    - Azure Service Bus
 
-AWS SQS
+    - AWS SQS
 
-Kafka for streaming ingest (very ambitious but it definitely sounds good right?)
+    - Kafka for streaming ingest (very ambitious but it definitely sounds good right?)
 
-Ensures at-least-once delivery and better monitoring.
+    - Ensures at-least-once delivery and better monitoring.
 
 2. Add Webhook Signing & Retry Strategy
 
