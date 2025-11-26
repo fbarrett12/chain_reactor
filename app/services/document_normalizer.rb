@@ -1,13 +1,17 @@
 class DocumentNormalizer
   def initialize(upload)
     @upload = upload
-    @rules = EdiRules.for(upload.vendor)
+    @rules  = EdiRules.for(upload.vendor)
   end
 
   def call
-    raw_data = parse_file # array of hashes or similar
+    raw_data = parse_file
     mapped   = map_fields(raw_data)
-    enriched = enrich_with_ai(mapped)
+
+    # 👇 compute stats BEFORE AI fills anything in
+    missing_stats = missing_field_stats(mapped)
+
+    enriched  = enrich_with_ai(mapped)
     validated = validate(enriched)
 
     {
@@ -16,7 +20,7 @@ class DocumentNormalizer
       records: validated,
       stats: {
         total_records: validated.size,
-        missing_fields_counts: missing_field_stats(validated)
+        missing_fields_counts: missing_stats
       }
     }
   end
@@ -44,7 +48,7 @@ class DocumentNormalizer
 
   def missing_field_stats(records)
     required = Array(@rules.dig(:required_fields))
-    counts = Hash.new(0)
+    counts   = Hash.new(0)
 
     records.each do |rec|
       required.each do |field|
